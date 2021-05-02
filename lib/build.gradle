@@ -1,0 +1,29 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    jcenter()
+}
+
+ext {
+    set('junitJupiterVersion', '5.7.1')
+}
+
+dependencies {
+    ['compileOnly', 'annotationProcessor', 'testCompileOnly', 'testAnnotationProcessor'].each {
+        conf -> add(conf, 'org.projectlombok:lombok:1.18.18')
+    }
+
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion",
+            "org.junit.jupiter:junit-jupiter-params:$junitJupiterVersion",
+            'com.google.guava:guava:29.0-jre'
+
+    api 'org.apache.commons:commons-math3:3.6.1'
+
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
